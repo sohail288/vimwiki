@@ -674,6 +674,13 @@ function! vimwiki#tbl#format(lnum, ...) abort
   if !vimwiki#u#ft_is_vw()
     return
   endif
+
+  " do not try modifying tables when the following vars are set
+  " TODO: use an array of values
+  if get(b:, "dodrawit", 0)
+    return
+  endif
+
   let line = getline(a:lnum)
   if !s:is_table(line)
     return
